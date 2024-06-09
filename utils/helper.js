@@ -1,5 +1,7 @@
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const multer = require('multer');
+const path = require('path');
 
 //encryption, decryption
 
@@ -50,4 +52,22 @@ async function sendEmail(emailTo, emailSubject, emailContent) {
     });
 };
 
-module.exports = { encrypt, decrypt, sendEmail };
+//setup multer storage
+function setupMulter(destinationFolder) {
+    const storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, destinationFolder);
+        },
+        filename: (req, file, cb) => {
+            const ext = path.extname(file.originalname);
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+            cb(null, uniqueSuffix + ext);
+        },
+    });
+
+    const upload = multer({ storage: storage });
+
+    return upload;
+}
+
+module.exports = { encrypt, decrypt, sendEmail, setupMulter };

@@ -2,7 +2,7 @@ const userModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const helper = require('../utils/helper');
-const { CONSTANTS } = require('../utils/constants');
+const { baseURL } = require('../utils/constants');
 
 exports.register = async (req, res) => {
     try {
@@ -143,7 +143,7 @@ exports.forgotPasswordOtp = async (req, res) => {
                     <body style="padding: 50px 10px; background-color: #B5C0D0;">
                         <div style="max-width: 500px; padding: 30px 10px; background-color: white; border-radius: 10px; margin: 10px auto;">
                         <div style="width: 200px; margin: 0 auto;">
-                            <img style="max-width: 100%;" src="${CONSTANTS.SERVER_URL}/public/logo.png">
+                            <img style="max-width: 100%;" src="${baseURL(req)}/public/logo.png">
                         </div>
                         <h4 style="margin-bottom: 30px; margin-top: 30px; text-align: center;">
                             OTP Code for Password Change

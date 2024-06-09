@@ -5,12 +5,14 @@ const cors = require('cors');
 const { CONSTANTS } = require('./utils/constants');
 
 const UsersRoute = require('./routes/users');
+const FormsRoute = require('./routes/forms');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 app.use('/public', express.static('public'));
+app.use('/uploads', express.static('uploads'));
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -23,6 +25,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/users', UsersRoute);
+app.use('/forms', FormsRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
